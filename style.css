@@ -5,39 +5,45 @@ body {
 }
 
 header {
-  background-color: #f8f9fa;
+  background: #f8f9fa;
   padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center;
 }
 
 header nav a {
-  margin-right: 1rem;
+  margin: 0 1rem;
   text-decoration: none;
   color: #007bff;
 }
 
-header input {
-  padding: 0.5rem;
-  width: 200px;
-}
-
-.newspaper {
-  border: 1px solid #ddd;
-  margin: 1rem;
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
   padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-.newspaper img {
-  max-width: 150px;
-  height: auto;
+.card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #fff;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.newspaper h2 {
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
   font-size: 1.2rem;
-  margin: 0.5rem 0;
+}
+
+.card button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
