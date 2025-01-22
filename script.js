@@ -1,43 +1,75 @@
-document.getElementById('resizeForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  
-  const name = document.getElementById('name').value;
-  const date = document.getElementById('date').value;
-  const fileInput = document.getElementById('upload');
-  const canvas = document.getElementById('canvas');
-  const ctx = canvas.getContext('2d');
+$(document).ready(function () {
+  $('#photoForm').on('submit', function (e) {
+    e.preventDefault();
 
-  if (fileInput.files.length === 0) {
-    alert('Please upload a photo');
-    return;
-  }
+    const name = $('#name').val();
+    const date = $('#date').val();
+    const fileInput = $('#upload')[0].files[0];
 
-  const file = fileInput.files[0];
-  const reader = new FileReader();
-  reader.onload = function () {
-    const img = new Image();
-    img.onload = function () {
-      canvas.width = 150; // width as per PSC guidelines
-      canvas.height = 200; // height as per PSC guidelines
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      ctx.font = "14px Arial";
-      ctx.fillStyle = "black";
-      ctx.fillText(name, 10, 190);
-      ctx.fillText(date, 10, 180);
+    if (!fileInput) {
+      alert('Please upload a photo!');
+      return;
+    }
 
-      document.getElementById('download').style.display = 'block';
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      const img = new Image();
+      img.onload = function () {
+        // Create canvas
+        const canvas = $('#canvas')[0];
+        const ctx = canvas.getContext('2d');
+
+        // Define final canvas dimensions
+        const canvasWidth = 200; // Target width
+        const canvasHeight = 150; // Target height
+        const photoHeight = 100; // Height for the photo
+        const whiteSpaceHeight = 50; // Space for name and date
+
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+
+        // Scale the image to fit within 200x100 pixels
+        const aspectRatio = img.width / img.height;
+        let scaledWidth, scaledHeight;
+        if (aspectRatio > 1) {
+          // Landscape
+          scaledWidth = photoHeight * aspectRatio;
+          scaledHeight = photoHeight;
+        } else {
+          // Portrait or square
+          scaledWidth = photoHeight;
+          scaledHeight = photoHeight / aspectRatio;
+        }
+        const offsetX = (canvasWidth - scaledWidth) / 2; // Center horizontally
+        const offsetY = 0; // Top aligned
+
+        // Draw resized photo
+        ctx.drawImage(img, offsetX, offsetY, scaledWidth, scaledHeight);
+
+        // Add white space below the image
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, photoHeight, canvasWidth, whiteSpaceHeight);
+
+        // Add name and date
+        ctx.font = 'bold 12px Arial';
+        ctx.fillStyle = '#333';
+        ctx.textAlign = 'center';
+        ctx.fillText(name, canvasWidth / 2, photoHeight + 20); // Name
+        ctx.fillText(date, canvasWidth / 2, photoHeight + 40); // Date
+
+        // Show download button
+        $('#download').show();
+      };
+      img.src = event.target.result;
     };
-    img.src = reader.result;
-  };
-  reader.readAsDataURL(file);
-});
+    reader.readAsDataURL(fileInput);
+  });
 
-document.getElementById('download').addEventListener('click', function () {
-  const canvas = document.getElementById('canvas');
-  const link = document.createElement('a');
-  link.download = 'resized_photo.jpg';
-  link.href = canvas.toDataURL();
-  link.click();
+  $('#download').on('click', function () {
+    const canvas = $('#canvas')[0];
+    const link = document.createElement('a');
+    link.download = 'resized_photo_200x150.jpg';
+    link.href = canvas.toDataURL();
+    link.click();
+  });
 });
