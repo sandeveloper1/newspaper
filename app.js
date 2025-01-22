@@ -1,27 +1,29 @@
 const newspapersUrl = './newspapers.json';
 
-// Fetch and display newspapers
+// Load newspapers
 async function loadNewspapers() {
   const response = await fetch(newspapersUrl);
   const newspapers = await response.json();
-  displayNewspapers(newspapers, document.getElementById('newspaper-list'));
+  const localNewspapers = JSON.parse(localStorage.getItem('newspapers')) || [];
+  const combined = [...newspapers, ...localNewspapers];
+  renderNewspapers(combined);
 }
 
-// Display a list of newspapers
-function displayNewspapers(newspapers, container) {
+// Render newspapers
+function renderNewspapers(newspapers) {
+  const container = document.getElementById('newspaper-list');
   container.innerHTML = newspapers.map((news, index) => `
-    <div class="newspaper">
-      <img src="${news.thumbnail || './assets/placeholder.png'}" alt="${news.name}">
-      <h2>${news.name}</h2>
-      <a href="${news.url}" target="_blank">Visit Website</a>
+    <div class="card">
+      <h3>${news.title}</h3>
+      <a href="${news.url}" target="_blank">Visit</a>
       <button onclick="toggleFavorite(${index})">
-        ${isFavorite(index) ? 'Remove from Favorites' : 'Add to Favorites'}
+        ${isFavorite(index) ? '♥️' : '🖤'}
       </button>
     </div>
   `).join('');
 }
 
-// Manage favorites
+// Favorites logic
 function toggleFavorite(index) {
   const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
   if (favorites.includes(index)) {
@@ -30,7 +32,7 @@ function toggleFavorite(index) {
     favorites.push(index);
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }
-  loadNewspapers(); // Update UI
+  loadNewspapers(); // Re-render
 }
 
 function isFavorite(index) {
@@ -38,25 +40,15 @@ function isFavorite(index) {
   return favorites.includes(index);
 }
 
-// Initialize the app
-if (location.pathname.endsWith('index.html')) loadNewspapers();
-if (location.pathname.endsWith('favorites.html')) {
+// Initialize
+if (location.pathname.includes('index.html')) loadNewspapers();
+if (location.pathname.includes('favorites.html')) {
   const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
   fetch(newspapersUrl)
-    .then(response => response.json())
-    .then(newspapers => displayNewspapers(favorites.map(i => newspapers[i]), document.getElementById('favorites-list')));
-}
-
-// Add newspaper
-if (location.pathname.endsWith('add-newspaper.html')) {
-  document.getElementById('add-newspaper-form').addEventListener('submit', event => {
-    event.preventDefault();
-    const name = document.getElementById('name').value;
-    const url = document.getElementById('url').value;
-    const thumbnail = document.getElementById('thumbnail').value || './assets/placeholder.png';
-    const newspapers = JSON.parse(localStorage.getItem('newspapers')) || [];
-    newspapers.push({ name, url, thumbnail });
-    localStorage.setItem('newspapers', JSON.stringify(newspapers));
-    alert('Newspaper added locally!');
-  });
+    .then(res => res.json())
+    .then(newspapers => {
+      const localNewspapers = JSON.parse(localStorage.getItem('newspapers')) || [];
+      const combined = [...newspapers, ...localNewspapers];
+      renderNewspapers(favorites.map(i => combined[i]));
+    });
 }
