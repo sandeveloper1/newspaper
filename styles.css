@@ -1,90 +1,73 @@
-/* General body styling */
+/* General Styles */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  text-align: center;
-  background-color: #f9f9f9;
+  background: #f8f9fa;
   color: #333;
 }
-
-/* Form container styling */
-form {
-  background-color: #ffffff;
-  padding: 20px;
-  margin: 20px auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  text-align: left;
+.header {
+  background: #007bff;
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
 }
-
-/* Input fields */
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 10px;
+}
+.editor {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h2 {
+  margin-top: 0;
+  color: #007bff;
+}
+.form-group {
+  margin-bottom: 15px;
+}
 label {
-  font-weight: bold;
-  margin-top: 10px;
   display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 input[type="text"],
+input[type="date"],
 input[type="file"] {
   width: 100%;
   padding: 10px;
-  margin: 10px 0 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 14px;
 }
-
-/* Submit button */
-button[type="submit"] {
-  background-color: #007BFF;
+.btn {
+  background: #28a745;
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem;
 }
-
-button[type="submit"]:hover {
-  background-color: #0056b3;
+.btn:hover {
+  background: #218838;
 }
-
-/* Canvas styling */
+.preview {
+  margin-top: 20px;
+  text-align: center;
+}
 canvas {
-  margin-top: 20px;
-  display: block;
-  border: 1px solid #ddd;
-  background-color: #ffffff;
-}
-
-/* Download button */
-#download {
-  display: none;
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #28a745;
-  color: white;
-  border: none;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
+  max-width: 100%;
+  height: auto;
 }
-
-#download:hover {
-  background-color: #218838;
-}
-
-/* Responsive styling */
-@media screen and (max-width: 600px) {
-  form {
-    margin: 10px;
-    padding: 15px;
-  }
-
-  button[type="submit"],
-  #download {
-    font-size: 14px;
-    padding: 8px 15px;
-  }
+.footer {
+  text-align: center;
+  padding: 10px;
+  background: #343a40;
+  color: white;
 }
