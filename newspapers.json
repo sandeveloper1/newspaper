@@ -1,12 +1,4 @@
 [
-  {
-    "name": "The Times",
-    "url": "https://www.thetimes.co.uk",
-    "thumbnail": "https://m.media-amazon.com/images/M/MV5BYTQ3ZTQ2M2MtM2NhNC00Nzc5LTllMjMtYzgyZGU3ZTQxNjdlXkEyXkFqcGc@._V1_QL75_UX140_CR0,6,140,207_.jpg"
-  },
-  {
-    "name": "The Guardian",
-    "url": "https://www.theguardian.com",
-    "thumbnail": "https://m.media-amazon.com/images/M/MV5BYTQ3ZTQ2M2MtM2NhNC00Nzc5LTllMjMtYzgyZGU3ZTQxNjdlXkEyXkFqcGc@._V1_QL75_UX140_CR0,6,140,207_.jpg"
-  }
+  { "title": "The Times", "url": "https://www.thetimes.co.uk" },
+  { "title": "The Guardian", "url": "https://www.theguardian.com" }
 ]
