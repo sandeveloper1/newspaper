@@ -1,0 +1,12 @@
+[
+  {
+    "name": "The Times",
+    "url": "https://www.thetimes.co.uk",
+    "thumbnail": "https://via.placeholder.com/150"
+  },
+  {
+    "name": "The Guardian",
+    "url": "https://www.theguardian.com",
+    "thumbnail": "https://via.placeholder.com/150"
+  }
+]
