@@ -20,15 +20,15 @@ $(document).ready(function () {
         const ctx = canvas.getContext('2d');
 
         // Define final canvas dimensions
-        const canvasWidth = 200; // Target width
-        const canvasHeight = 150; // Target height
-        const photoHeight = 100; // Height for the photo
+        const canvasWidth = 150; // Target width
+        const canvasHeight = 200; // Target height
+        const photoHeight = 150; // Height for the photo
         const whiteSpaceHeight = 50; // Space for name and date
 
         canvas.width = canvasWidth;
         canvas.height = canvasHeight;
 
-        // Scale the image to fit within 200x100 pixels
+        // Scale the image to fit within 150x150 pixels
         const aspectRatio = img.width / img.height;
         let scaledWidth, scaledHeight;
         if (aspectRatio > 1) {
@@ -68,7 +68,7 @@ $(document).ready(function () {
   $('#download').on('click', function () {
     const canvas = $('#canvas')[0];
     const link = document.createElement('a');
-    link.download = 'resized_photo_200x150.jpg';
+    link.download = 'resized_photo_150x200.jpg';
     link.href = canvas.toDataURL();
     link.click();
   });
